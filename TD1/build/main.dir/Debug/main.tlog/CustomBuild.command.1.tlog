@@ -1,0 +1,10 @@
+^D:\JEAN\DOCS\TRAVAIL\IMAC\SEMESTRE 2\PROGRAMMATION\TD1\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1" "-BD:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1/build" --check-stamp-file "D:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

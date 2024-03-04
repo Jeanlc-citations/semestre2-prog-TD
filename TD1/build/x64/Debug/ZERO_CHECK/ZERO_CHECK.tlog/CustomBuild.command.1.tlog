@@ -1,0 +1,10 @@
+^D:\JEAN\DOCS\TRAVAIL\IMAC\SEMESTRE 2\PROGRAMMATION\TD1\BUILD\CMAKEFILES\A1495BE809450A6CD12E7D3BA9AB0062\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1" "-BD:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/Jean/docs/travail/IMAC/semestre 2/Programmation/TD1/build/TD1_Project.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
