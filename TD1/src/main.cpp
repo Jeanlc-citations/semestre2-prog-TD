@@ -50,6 +50,10 @@ int main()
     }
 
 
+    float d1 {static_cast<float>(f1)};
+    std::cout << "En valeur decimal, f1 = " << d1 << std::endl;
+
+
 
 
     

@@ -12,6 +12,12 @@ std::ostream& operator<<(std::ostream& os, Fraction const& fract) {
 }
 
 /*
+
+************
+*Exercice 1*
+************
+
+
 Fraction operator+(Fraction const& f1, Fraction const& f2) {
     return simplify({
         f1.numerator * f2.denominator + f2.numerator * f1.denominator,
@@ -43,25 +49,7 @@ Fraction operator/(Fraction const& f1, Fraction const& f2) {
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-// Fraction add(Fraction const& f1, Fraction const& f2) {
-//     Fraction result {
-//         f1.numerator * f2.denominator + f2.numerator * f1.denominator
-//         f1.denominator * f2.denominator
-//     };
-
-//     return simplify(result);
-// }
+// Exercice 5 
 
 Fraction operator+(Fraction  f1, Fraction const& f2) {
     f1 += f2;
@@ -94,6 +82,9 @@ bool operator!=(Fraction const& f1, Fraction const& f2) {
 }
 
 
+
+// Exercice 4
+
 bool operator<(Fraction const& f1, Fraction const& f2) {
     return f1.numerator*f2.denominator < f2.numerator*f1.denominator;
 }
@@ -108,6 +99,47 @@ bool operator>=(Fraction const& f1, Fraction const& f2) {
 }
 
 
-Fraction::operator float(Fraction const& f1) const {
-    return {static_cast<float>(f1.numerator) / static_cast<float>(f1.denominator)};
+// Exercice 5
+
+ Fraction Fraction::operator+=(Fraction const& f2) {
+    
+    numerator += numerator * f2.denominator + numerator * f2.denominator - numerator;
+    denominator += denominator * f2.denominator - denominator;
+    
+    return *this;
+}
+
+Fraction Fraction::operator-=(Fraction const& f2) {
+    
+    numerator += numerator * f2.denominator - f2.numerator * denominator - numerator;
+    denominator += denominator * f2.denominator - denominator;
+    
+    return *this;
+}
+
+Fraction Fraction::operator*=(Fraction const& f2) {
+    
+    numerator *= f2.numerator;
+    denominator *= f2.denominator;
+    
+    return *this;
+}
+
+Fraction Fraction::operator/=(Fraction const& f2) {
+    
+    numerator *= f2.denominator;
+    denominator *= f2.numerator;
+    
+    return *this;
+}
+
+
+
+
+float Fraction::to_float() const {
+    return static_cast<float>(numerator) / static_cast<float>(denominator);
+}
+
+Fraction::operator float() const {
+    return to_float();
 }
