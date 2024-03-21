@@ -13,9 +13,9 @@ std::ostream& operator<<(std::ostream& os, Fraction const& fract) {
 
 /*
 
-************
-*Exercice 1*
-************
+*************************
+*Exercice 1 : opérations*
+*************************
 
 
 Fraction operator+(Fraction const& f1, Fraction const& f2) {
@@ -49,7 +49,7 @@ Fraction operator/(Fraction const& f1, Fraction const& f2) {
 */
 
 
-// Exercice 5 
+// Exercice 5 : opérations d'affectation
 
 Fraction operator+(Fraction  f1, Fraction const& f2) {
     f1 += f2;
@@ -83,7 +83,7 @@ bool operator!=(Fraction const& f1, Fraction const& f2) {
 
 
 
-// Exercice 4
+// Exercice 4 : comparaison
 
 bool operator<(Fraction const& f1, Fraction const& f2) {
     return f1.numerator*f2.denominator < f2.numerator*f1.denominator;
@@ -99,7 +99,7 @@ bool operator>=(Fraction const& f1, Fraction const& f2) {
 }
 
 
-// Exercice 5
+// Exercice 5 : opérations d'affectation suite
 
  Fraction Fraction::operator+=(Fraction const& f2) {
     
@@ -135,6 +135,7 @@ Fraction Fraction::operator/=(Fraction const& f2) {
 
 
 
+// exercice 6 : conversion
 
 float Fraction::to_float() const {
     return static_cast<float>(numerator) / static_cast<float>(denominator);
