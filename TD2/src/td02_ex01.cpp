@@ -1,5 +1,14 @@
-#include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <algorithm>
+#include "ScopedTimer.hpp"
+
+std::vector<int> generate_random_vector(size_t const size, int const max = 100) {
+    std::vector<int> vec(size);
+    std::generate(vec.begin(), vec.end(), [&max]() { return std::rand() % max;} );
+    return vec;
+}
+
 
 
 std::vector<int> bulle(std::vector<int> & tableau) {
@@ -16,6 +25,7 @@ std::vector<int> bulle(std::vector<int> & tableau) {
     }
     return tableau;
 }
+
 
 std::vector<int> selection(std::vector<int> & tableau) {
     bool trie{false};
@@ -43,11 +53,23 @@ std::vector<int> selection(std::vector<int> & tableau) {
 
 
 int main() {
-    std::vector<int> tableau {1, 9, 5, 12, 9, 3, 4, 6, 8};
+     std::vector<int> tableau {1, 9, 5, 12, 9, 3, 4, 6, 8};
+    // std::vector<int> tableau {generate_random_vector(9, 100)};
 
     std::vector<int> tableau_trie {selection(tableau)};
-
     for (int j{0}; j < tableau_trie.size(); j++) {
         std::cout << tableau_trie[j] << std::endl;
+    }
+
+
+    // exercice 3
+    {
+    ScopedTimer timer("Chronos");
+    selection(tableau);
+    }
+
+    {
+    ScopedTimer timer("Chronos");
+    bulle(tableau);
     }
 }
