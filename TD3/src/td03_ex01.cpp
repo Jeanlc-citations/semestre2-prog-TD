@@ -17,14 +17,12 @@ std::vector<std::string> split_string(std::string const& s)
 
 
 bool is_floating(std::string const& s) {
-    bool flottant{false};
+    bool flottant{true};
     
     
     for (int i{0}; i < s.size(); i++) {
         if (std::isdigit(s[i]) || s[i] == '.') {
-            if (s[i] == '.') {
-                flottant = true;
-            }
+
         } else {
             flottant = false;
             break;
@@ -33,58 +31,62 @@ bool is_floating(std::string const& s) {
     return flottant;
 }
 
-bool is_floating_verif(std::string const& s)
+float is_floating_verif(std::string const& s)
 {
     float value;
     auto [p, ec] = std::from_chars(s.data(), s.data() + s.size(), value);
     return ec == std::errc() && p == s.data() + s.size();
 }
 
-std::string npi_evaluate(std::vector<std::string> const& tokens) {
+void npi_evaluate(std::vector<std::string> const& tokens) {
     std::string reponse{};
     std::stack<float> stack{};
+    bool erreur{false};
     for (int i{0}; i < tokens.size(); i++) {
         bool chiffre {is_floating(tokens[i])}; 
         if (chiffre == true) {
             float flottant {std::stof(tokens[i])};
             stack.push(flottant);
-        } else {
-            if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/') {
+        } 
+        else if (tokens[i][0] == '+' || tokens[i][0] == '-' || tokens[i][0] == '*' || tokens[i][0] == '/') {
                 float rightOperand { stack.top() };
                 stack.pop();
                 float leftOperand { stack.top() };
                 stack.pop();
                 float result{};
-                if (tokens[i] == '+') {
+                if (tokens[i][0] == '+') {
                     result = leftOperand + rightOperand;
                 }
-                if (tokens[i] == '-') {
+                if (tokens[i][0] == '-') {
                     result = leftOperand - rightOperand;
                 }
-                if (tokens[i] == '*') {
+                if (tokens[i][0] == '*') {
                     result = leftOperand * rightOperand;
                 }
-                if (tokens[i] == '/') {
+                if (tokens[i][0] == '/') {
                     result = leftOperand / rightOperand;
                 }
                 stack.push(result);
-            } else {
-                reponse = "Probleme de caracteres speciaux. Votre operation NPI est incorrecte !";
-                break;
-            }
+        } else {
+            erreur = true;
+            std::cout << "Probleme de caracteres speciaux "<< tokens[i] << ". Votre operation NPI est incorrecte !" << std::endl;
+            break;
+        }
 
         }
-    }
+    
     if (stack.size() > 1) {
-        reponse = "Probleme de stack. Votre operation NPI est incorrecte !"
+        erreur = true;
+        std::cout << "Probleme de stack. Votre operation NPI est incorrecte !" << std::endl;
     }
-    else {
+    else if (stack.size() == 1 && erreur == false) {
         float final_result{stack.top()};
         stack.pop();
-        reponse = "Le resultat de votre operation NPI est "
+        std::cout << "Le resultat de votre operation NPI est " << final_result << std::endl;
     }
-    
 }
+    
+
 
 int main() {
     std::string NPI{};
@@ -95,7 +97,9 @@ int main() {
          std::cout << chaine[i] << std::endl;
      }
 
-    std::string resultat {npi_evaluate(chaine)};
+    npi_evaluate(chaine);
+
+
     // bool flottant {is_floating(NPI)};
     // bool verif {is_floating_verif(NPI)};
 

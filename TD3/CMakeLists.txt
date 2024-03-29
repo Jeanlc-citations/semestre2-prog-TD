@@ -5,5 +5,5 @@ project(TD03)
 
 
 # On indique que l'on veut créer un exécutable "ex01" compilé à partir du fichier td03_ex01.cpp
-add_executable(ex01 src/td03_ex01.cpp)
+add_executable(ex-1 src/td03_ex01.cpp)
 
