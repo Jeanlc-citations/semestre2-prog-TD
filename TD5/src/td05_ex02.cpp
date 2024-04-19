@@ -45,7 +45,7 @@ std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector
         };
 
         if (it_tableau2 == liste.end()) {
-            auto robot_suivant {std::find_if(robots_fixes.begin(), robots_fixes.end(), is_name_robot)};
+            auto robot_suivant {robots_fixes.begin()};
             auto robot_precedent{robots_fixes.begin()};
             std::vector<float>  liste_reparations{};
             while (robot_suivant != robots_fixes.end()) {
@@ -53,7 +53,10 @@ std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector
                 if (robot_suivant != robots_fixes.end()) {
                     liste_reparations.push_back(robot_suivant->second);
                 }
-                robot_precedent = robot_suivant+1;
+                if (robot_suivant != robots_fixes.end()) {
+                    robot_precedent = robot_suivant+1;
+                }
+                
         
         
             }
@@ -63,12 +66,33 @@ std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector
     return liste;
 }
 
+float somme_fixes(std::vector<float> & reparations) {
+    float somme{};
+    for (int i{0}; i < reparations.size(); i++) {
+        somme += reparations[i];
+    }
+    return somme;
+}
+
+std::unordered_map<std::string, float> liste_robots(std::vector<std::pair<std::string, float>> & robots_fixes) {
+    std::unordered_map<std::string, float> liste_robots{};
+    std::unordered_map<std::string, std::vector<float>> trie_robots {robots_fixes_map(robots_fixes)};
+    auto it {trie_robots.begin()};
+    for (it; it != trie_robots.end(); ++it) {
+        auto fixes{it->second};
+        liste_robots.insert({it->first, somme_fixes(fixes)});
+    }
+    return liste_robots;
+
+}
 
 int main() {
     std::vector<std::pair<std::string, float>> robots_fixes{get_robots_fix(10)};
-    std::unordered_map<std::string, std::vector<float>> liste{robots_fixes_map(robots_fixes)};
-    for (int i{}; i < liste.size(); i++) {
-        std::cout << liste[i] << std::endl;
+    std::unordered_map<std::string, float> liste{liste_robots(robots_fixes)};
+    auto it{liste.begin()};
+    for (it; it != liste.end(); it++) {
+        std::cout << "Robot : " << it->first << ", prix des reparations : " << it->second << std::endl;
     }
+    
     return 0;
 }
