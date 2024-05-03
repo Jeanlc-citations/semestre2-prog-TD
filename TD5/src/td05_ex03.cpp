@@ -30,7 +30,7 @@ struct Card {
     CardKind kind;
     CardValue value;
 
-    int const hash();
+    int hash() const;
 };
 
 
@@ -49,7 +49,7 @@ bool operator==(Card const& c1, Card const& c2) {
 }
 
 
-/*
+
 namespace std {
     template<>
     struct hash<Card> {
@@ -58,9 +58,9 @@ namespace std {
         }
     };
 }
-*/
 
-int const Card::hash() {
+
+int Card::hash() const {
     int symbole{};
     if (kind == CardKind::Heart) {
         symbole = 0;
@@ -78,8 +78,6 @@ int const Card::hash() {
     int nombre{valeur * 4 + symbole};
 
     return nombre;
-
-
 }
 
 std::string card_name(Card const& card) {
