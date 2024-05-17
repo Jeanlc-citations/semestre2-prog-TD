@@ -17,12 +17,10 @@ std::vector<std::string> split_string(std::string const& s)
 
 
 bool is_floating(std::string const& s) {
-    bool flottant{true};
-    
-    
+    bool flottant{};
     for (int i{0}; i < s.size(); i++) {
         if (std::isdigit(s[i]) || s[i] == '.') {
-
+            flottant = true; 
         } else {
             flottant = false;
             break;

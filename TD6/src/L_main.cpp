@@ -20,7 +20,9 @@ int main() {
     root->insert(7);
     root->insert(0);
 
-    
+    int hauteur {root->height()};
+
+    std::cout << hauteur << std::endl;
     
 
     return 0;

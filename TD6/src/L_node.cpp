@@ -3,15 +3,6 @@
 
 Node* create_node(int value) {
     Node* root { new Node {value, nullptr, nullptr}};
-    // if (value > 1) {
-    //     for (int i{2}; i < value; i++) {
-    //         if (i%2 == 0) {
-    //             root->left = { new Node {i, nullptr, nullptr}};
-    //         } else {
-    //             root->right = { new Node {i, nullptr, nullptr}};
-    //         }
-    // }
-    // }
     return root;
 }
 
@@ -41,8 +32,37 @@ void Node::insert(int value2) {
     }
 }
 
-/*
+
 int Node::height() const {
+    int height{0};
+    if (right == nullptr && left == nullptr) {
+        height = 1;
+        return height;
+    } 
+    else {
+        int right_height{};
+        int left_height{};
+        if (right == nullptr) {
+            right_height = 0;
+        } else {
+            right_height = right->height();
+        }
+        if (left == nullptr) {
+            left_height = 0;
+        } else {
+            left_height = left->height(); 
+        }
+        if (right_height > left_height) {
+            return right_height+1;
+        }
+            else {
+                return left_height+1;
+            }
+        
+    }
     
 }
-*/
+
+void Node::delete_childs() {
+    
+}

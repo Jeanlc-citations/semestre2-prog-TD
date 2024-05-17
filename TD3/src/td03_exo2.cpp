@@ -35,6 +35,19 @@ Token make_token(Operator op) {
 }
 
 
+bool is_floating(std::string const& s) {
+    bool flottant{};
+    for (int i{0}; i < s.size(); i++) {
+        if (std::isdigit(s[i]) || s[i] == '.') {
+            flottant = true; 
+        } else {
+            flottant = false;
+            break;
+        }
+    }
+    return flottant;
+}
+
 
 
 
@@ -42,9 +55,13 @@ std::vector<Token> tokenize(std::vector<std::string> const& s) {
     std::vector<Token> tableau{};
     for (int i{0}; i < s.size(); i++) {
         if (std::isdigit(s[i][0])) {
+
+            bool chiffre {is_floating(s[i])}; 
+        if (chiffre == true) {
             float nombre{std::stof(s[i])};
             Token operande {make_token(nombre)};
             tableau.push_back(operande);
+        }
         } 
         else if (s[i][0] == '+' || s[i][0] == '-' || s[i][0] == '*' || s[i][0] == '/') {
                 if (s[i][0] == '+') {
