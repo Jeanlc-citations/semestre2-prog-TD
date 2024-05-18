@@ -61,6 +61,7 @@ namespace std {
 
 
 int Card::hash() const {
+    /*
     int symbole{};
     if (kind == CardKind::Heart) {
         symbole = 0;
@@ -74,6 +75,8 @@ int Card::hash() const {
     else if (kind == CardKind::Spade){
         symbole = 3;
     }
+    */
+    int symbole {static_cast<int>(kind)};
     int valeur {static_cast<int>(value)};
     int nombre{valeur * 4 + symbole};
 
@@ -111,6 +114,7 @@ std::string card_name(Card const& card) {
     return name;
 }
 
+/*
 std::unordered_map<std::string, int> tri_cartes(std::vector<std::string> & cartes) {
     std::unordered_map<std::string, int> tri_cartes{};
     for (int i{0}; i < cartes.size(); i++) {
@@ -142,6 +146,29 @@ std::unordered_map<std::string, int> tri_cartes(std::vector<std::string> & carte
     }
     return tri_cartes;
 }
+*/
+
+
+std::unordered_map<std::string, int> tri_cartes(std::vector<std::string> & cartes) {
+    std::unordered_map<std::string, int> tri_cartes{};
+    // int nombre {1};
+    for (int i{0}; i < cartes.size(); i++) {
+        std::string carte {cartes[i]};
+        auto is_carte {tri_cartes.find(carte)};
+        
+        if (is_carte == tri_cartes.end()) {
+            tri_cartes.insert({carte, 1});
+        } else {
+            tri_cartes[carte]++;
+        }
+
+        
+    }
+    return tri_cartes;
+
+}
+
+
 
 int main() {
     std::vector<Card> liste_cartes {get_cards(100)};
@@ -160,6 +187,9 @@ int main() {
     for (it; it != cartes_triees.end(); it++) {
         std::cout << it->first << " : " << it->second << std::endl;
     }
+    
+
+    
     
 }
         

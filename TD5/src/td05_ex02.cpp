@@ -32,7 +32,7 @@ std::vector<std::pair<std::string, float>> get_robots_fix(size_t size) {
 }
 
 
-
+/*
 std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector<std::pair<std::string, float>> const& robots_fixes) {
     std::unordered_map<std::string, std::vector<float>> liste{};
     for (int i{0}; i < robots_fixes.size(); i++) {
@@ -65,6 +65,26 @@ std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector
     }
     return liste;
 }
+*/
+
+
+std::unordered_map<std::string, std::vector<float>> robots_fixes_map(std::vector<std::pair<std::string, float>> const& robots_fixes) {
+    std::unordered_map<std::string, std::vector<float>> liste{};
+    for (std::pair<std::string, float> reparations : robots_fixes) {
+        std::string name_robot {reparations.first};
+        auto is_name_robot {liste.find(name_robot)};
+
+        if (is_name_robot == liste.end()) {
+            std::vector<float>  liste_reparations{reparations.second};
+            liste.insert({name_robot, liste_reparations});
+        } else {
+            (*is_name_robot).second.push_back(reparations.second);
+        }
+
+        
+    }
+    return liste;
+}
 
 float somme_fixes(std::vector<float> & reparations) {
     float somme{};
@@ -87,7 +107,7 @@ std::unordered_map<std::string, float> liste_robots(std::vector<std::pair<std::s
 }
 
 int main() {
-    std::vector<std::pair<std::string, float>> robots_fixes{get_robots_fix(10)};
+    std::vector<std::pair<std::string, float>> robots_fixes{get_robots_fix(100)};
     std::unordered_map<std::string, float> liste{liste_robots(robots_fixes)};
     auto it{liste.begin()};
     for (it; it != liste.end(); it++) {
@@ -96,3 +116,6 @@ int main() {
     
     return 0;
 }
+
+
+
