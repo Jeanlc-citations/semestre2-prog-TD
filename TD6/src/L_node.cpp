@@ -64,5 +64,46 @@ int Node::height() const {
 }
 
 void Node::delete_childs() {
+    /*
+    if (right == nullptr && left == nullptr) {
+        delete this;
+    } 
+    else {
+        if (right != nullptr) {
+            right->delete_childs();
+        } 
+        if (left != nullptr) {
+            left->delete_childs();
+        } 
+
+    }
+    */
+   if (right != nullptr) {
+            right->delete_childs();
+            right = nullptr;
+    } 
+    if (left != nullptr) {
+            left->delete_childs();
+            left = nullptr;
+    } 
+
+
     
+}
+
+
+void Node::delete_tree() {
+    
+    if (right == nullptr && left == nullptr) {
+        delete this;
+    } 
+    else {
+        if (right != nullptr) {
+            right->delete_childs();
+        } 
+        if (left != nullptr) {
+            left->delete_childs();
+        } 
+
+    }   
 }

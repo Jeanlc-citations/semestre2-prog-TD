@@ -23,6 +23,12 @@ int main() {
     int hauteur {root->height()};
 
     std::cout << hauteur << std::endl;
+
+    
+
+    root->delete_childs();
+    hauteur = root->height();
+    std::cout << hauteur << std::endl;
     
 
     return 0;
