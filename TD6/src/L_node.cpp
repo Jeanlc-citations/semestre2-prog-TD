@@ -1,5 +1,6 @@
 #include <iostream>
 #include "L node.hpp"
+#include <vector>
 
 Node* create_node(int value) {
     Node* root { new Node {value, nullptr, nullptr}};
@@ -64,20 +65,6 @@ int Node::height() const {
 }
 
 void Node::delete_childs() {
-    /*
-    if (right == nullptr && left == nullptr) {
-        delete this;
-    } 
-    else {
-        if (right != nullptr) {
-            right->delete_childs();
-        } 
-        if (left != nullptr) {
-            left->delete_childs();
-        } 
-
-    }
-    */
    if (right != nullptr) {
             right->delete_childs();
             right = nullptr;
@@ -91,20 +78,131 @@ void Node::delete_childs() {
     
 }
 
-/*
-void Node::delete_tree() {
-    
-    if (right == nullptr && left == nullptr) {
-        delete this;
-    } 
-    else {
-        if (right != nullptr) {
-            right->delete_childs();
-        } 
-        if (left != nullptr) {
-            left->delete_childs();
-        } 
 
-    }   
+void Node::display_infixe() const {
+    if (left != nullptr) {
+        left->display_infixe(); 
+    }
+
+    std::cout << value << std::endl;
+
+    if (right != nullptr) {
+        right->display_infixe();
+    }
+}
+
+void Node::display_prefixe() const {
+    
+    std::cout << value << std::endl;
+    
+    if (left != nullptr) {
+        left->display_prefixe(); 
+    }
+
+    if (right != nullptr) {
+        right->display_prefixe();
+    }
+}
+
+/*
+void Node::display_postfixe() const {
+    
+    
+    if (left != nullptr) {
+        left->display_postfixe(); 
+    }
+
+    if (right != nullptr) {
+        right->display_postfixe();
+    }
+
+    std::cout << value << std::endl;
 }
 */
+
+std::vector<Node const*> Node::prefixe() const {
+    std::vector<Node const*> nodes{};
+
+    nodes.push_back(this);
+    
+    if (left != nullptr) {
+        auto left_nodes {left->prefixe()};
+        nodes.insert(nodes.end(), left_nodes.begin(), left_nodes.end()); 
+    }
+
+    if (right != nullptr) {
+        auto right_nodes {right->prefixe()};
+        nodes.insert(nodes.end(), right_nodes.begin(), right_nodes.end()); 
+    }
+    return nodes;
+}
+
+Node*& most_left(Node*& node) {
+    if (node == nullptr || node->left == nullptr) {
+        return node;
+    } else {
+        return most_left(node->left);
+    }
+}
+
+
+
+bool remove(Node*& node, int value) {
+    if (node == nullptr) {
+        return false;
+    }
+
+    if (node->value == value) {
+        bool is_leaf{node->is_leaf()};
+        if (is_leaf == true) {
+            delete node;
+            node = nullptr;
+            return true;
+        } else if (node->left != nullptr && node->right == nullptr) {
+            Node* node_suppression = node;
+            node = node->left;
+            delete node_suppression;
+            return true;
+        } else if (node->left == nullptr && node->right != nullptr) {
+            Node* node_suppression = node;
+            node = node->right;
+            delete node_suppression;
+            return true;
+        } else if (node->left != nullptr && node->right != nullptr) { 
+            Node* successor = most_left(node->right);
+            node->value = successor->value;
+            return remove(node->right, successor->value);
+        }
+    } else if (node->value < value) {
+        return remove(node->right, value);
+    } else {
+        return remove(node->left, value);
+    }
+}
+
+
+
+
+void delete_tree(Node* node) {
+    
+    node->delete_childs();
+    delete node;
+    node = nullptr;   
+}
+
+
+int Node::min() const {
+    if (left == nullptr) {
+        return value;
+    } else {
+        left->min();
+    }
+};
+
+int Node::max() const {
+    if (right == nullptr) {
+        return value;
+    } else {
+        right->max();
+    }
+}
