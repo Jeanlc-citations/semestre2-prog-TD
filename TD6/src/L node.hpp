@@ -15,8 +15,9 @@ struct Node {
     void display_prefixe() const;
     int min() const;
     int max() const;
-    //void Node::display_postfixe() const;
+    void Node::display_postfixe() const;
     std::vector<Node const*> prefixe() const;
+    std::vector<Node const*> postfixe() const;
 };
 
 Node* create_node(int value);

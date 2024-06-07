@@ -22,6 +22,7 @@ int main() {
     
     root->display_infixe();
 
+    
     int min {root->min()};
     std::cout << min << std::endl;
 
@@ -41,5 +42,6 @@ int main() {
     int hauteur {root->height()};
     std::cout << hauteur << std::endl;
 
+    
     return 0;
 }

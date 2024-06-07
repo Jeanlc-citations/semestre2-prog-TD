@@ -104,22 +104,6 @@ void Node::display_prefixe() const {
     }
 }
 
-/*
-void Node::display_postfixe() const {
-    
-    
-    if (left != nullptr) {
-        left->display_postfixe(); 
-    }
-
-    if (right != nullptr) {
-        right->display_postfixe();
-    }
-
-    std::cout << value << std::endl;
-}
-*/
-
 std::vector<Node const*> Node::prefixe() const {
     std::vector<Node const*> nodes{};
 
@@ -137,6 +121,42 @@ std::vector<Node const*> Node::prefixe() const {
     return nodes;
 }
 
+
+void Node::display_postfixe() const {
+    
+    
+    if (left != nullptr) {
+        left->display_postfixe(); 
+    }
+
+    if (right != nullptr) {
+        right->display_postfixe();
+    }
+
+    std::cout << value << std::endl;
+}
+
+
+std::vector<Node const*> Node::postfixe() const {
+    std::vector<Node const*> nodes{};
+
+    
+    
+    if (left != nullptr) {
+        auto left_nodes {left->prefixe()};
+        nodes.insert(nodes.end(), left_nodes.begin(), left_nodes.end()); 
+    }
+
+    if (right != nullptr) {
+        auto right_nodes {right->prefixe()};
+        nodes.insert(nodes.end(), right_nodes.begin(), right_nodes.end()); 
+    }
+
+    nodes.push_back(this);
+
+    return nodes;
+}
+
 Node*& most_left(Node*& node) {
     if (node == nullptr || node->left == nullptr) {
         return node;
@@ -144,6 +164,7 @@ Node*& most_left(Node*& node) {
         return most_left(node->left);
     }
 }
+
 
 
 
