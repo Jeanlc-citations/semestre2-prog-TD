@@ -91,7 +91,7 @@ void Node::delete_childs() {
     
 }
 
-
+/*
 void Node::delete_tree() {
     
     if (right == nullptr && left == nullptr) {
@@ -107,3 +107,4 @@ void Node::delete_tree() {
 
     }   
 }
+*/
